@@ -11,17 +11,17 @@
 <body>
     <div class="container my-3">
         <h2 class="text-center">แบบฟอร์มบันทึกข้อมูล</h2>
-        <form action="insertData.php" method="POST">
-            <div class="dropdown">
+        <form action="../db/insertData.php" method="POST">
+            <div class="form-group">
                 <label for="prefix">คำนำหน้า</label>
                 <select type="text" id="" name="prefix">
-                    <option value="Prefix0">ไม่กำหนด</option>
-                    <option value="Prefix1">นาย</option>
-                    <option value="Prefix2">นางสาว</option>
-                    <option value="Prefix3">นาง</option>
-                    <option value="Prefix4">นายแพทย์</option>
-                    <option value="Prefix5">แพทย์หญิง</option>
-                    <option value="Prefix6">นางพยาบาล</option>
+                    <option value="ไม่กำหนด">ไม่กำหนด</option>
+                    <option value="นาย">นาย</option>
+                    <option value="นางสาว">นางสาว</option>
+                    <option value="นาง">นาง</option>
+                    <option value="Pนายแพทย์">นายแพทย์</option>
+                    <option value="แพทย์หญิง">แพทย์หญิง</option>
+                    <option value="นางพยาบาล">นางพยาบาล</option>
                 </select>
             </div>
             <div class="form-group">
@@ -32,40 +32,40 @@
                 <label for="lastname">นามสกุล</label>
                 <input type="text" name="lname" id="" class="form-control">
             </div>
-            <div class="dropdown">
+            <div class="form-group">
                 <label for="department">แผนก</label>
                 <select id="" name="department">
-                    <option value="Dept0">ไม่กำหนด</option>
-                    <option value="Dept1">แผนกผู้ป่วยใน</option>
-                    <option value="Dept2">แผนกผู้ป่วยนอก</option>
-                    <option value="Dept3">แผนกฉุกเฉินและอุบัติเหตุ</option>
-                    <option value="Dept4">แผนกจิตเวช</option>
-                    <option value="Dept5">แผนกผู้ป่วยหนัก</option>
-                    <option value="Dept6">แผนกรังสี</option>
-                    <option value="Dept7">แผนกเภสัชกรรม</option>
-                    <option value="Dept8">แผนกห้องปฏิบัติการทางการแพทย์ </option>
-                    <option value="Dept9">แผนกศัลยกรรม</option>
-                    <option value="Dept10">แผนกวิสัญญี</option>
-                    <option value="Dept11">แผนกสูตินรีเวช</option>
-                    <option value="Dept12">แผนกเวชศาสตร์ฟื้นฟู</option>
-                    <option value="Dept13">แผนกกุมารเวช</option>
-                    <option value="Dept14">แผนกอายุรกรรม</option>
-                    <option value="Dept15">แผนกจักษุ</option>
-                    <option value="Dept16">แผนกหู คอ จมูก</option>
+                    <option value="ไม่กำหนด">ไม่กำหนด</option>
+                    <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยใน</option>
+                    <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยนอก</option>
+                    <option value="แผนกฉุกเฉินและอุบัติเหตุ">แผนกฉุกเฉินและอุบัติเหตุ</option>
+                    <option value="แผนกจิตเวช">แผนกจิตเวช</option>
+                    <option value="แผนกผู้ป่วยหนัก">แผนกผู้ป่วยหนัก</option>
+                    <option value="แผนกรังสี">แผนกรังสี</option>
+                    <option value="แผนกเภสัชกรรม">แผนกเภสัชกรรม</option>
+                    <option value="แผนกห้องปฏิบัติการทางการแพทย์">แผนกห้องปฏิบัติการทางการแพทย์ </option>
+                    <option value="แผนกศัลยกรรม">แผนกศัลยกรรม</option>
+                    <option value="แผนกวิสัญญี">แผนกวิสัญญี</option>
+                    <option value="แผนกสูตินรีเวช">แผนกสูตินรีเวช</option>
+                    <option value="แผนกเวชศาสตร์ฟื้นฟู">แผนกเวชศาสตร์ฟื้นฟู</option>
+                    <option value="แผนกกุมารเวช">แผนกกุมารเวช</option>
+                    <option value="แผนกอายุรกรรม">แผนกอายุรกรรม</option>
+                    <option value="แผนกจักษุ">แผนกจักษุ</option>
+                    <option value="แผนกหู คอ จมูก">แผนกหู คอ จมูก</option>
                 </select>
             </div>
-            <div class="dropdown">
+            <div class="form-group">
                 <label for="position">ตำแหน่ง</label>
                 <select id="" name="position">
-                    <option value="Position0">ไม่กำหนด</option>
-                    <option value="Position1">ศาสตราจารย์</option>
-                    <option value="Position2">รองศาสตราจารย์</option>
-                    <option value="Position3">ผู้ช่วยศาสตราจารย์</option>
-                    <option value="Position4">อาจารย์</option>
-                    <option value="Position5">นักวิจัย</option>
-                    <option value="Position6">พยาบาล</option>
-                    <option value="Position7">แพทย์</option>
-                    <option value="Position8">เจ้าหน้าที่</option>
+                    <option value="ไม่กำหนด">ไม่กำหนด</option>
+                    <option value="ศาสตราจารย์">ศาสตราจารย์</option>
+                    <option value="รองศาสตราจารย์">รองศาสตราจารย์</option>
+                    <option value="ผู้ช่วยศาสตราจารย์">ผู้ช่วยศาสตราจารย์</option>
+                    <option value="อาจารย์">อาจารย์</option>
+                    <option value="นักวิจัย">นักวิจัย</option>
+                    <option value="พยาบาล">พยาบาล</option>
+                    <option value="แพทย์">แพทย์</option>
+                    <option value="เจ้าหน้าที่">เจ้าหน้าที่</option>
                 </select>
             </div>
             <div class="form-group">
