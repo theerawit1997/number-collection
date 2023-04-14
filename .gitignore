@@ -1,5 +1,6 @@
 # ignore file to upload on server
 
+.git
 tmpcode
 
 
