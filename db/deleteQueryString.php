@@ -1,7 +1,7 @@
 <?php
 require('db_connect.php');
 
-$id = $_GET["idemp"];
+$id = $_GET["idre"];
 
 $sql = "DELETE FROM info WHERE id =$id";
 

@@ -29,7 +29,7 @@ $count = mysqli_num_rows($result);
             <form class="form-group">
                 <a href="function/insertForm.php" class="btn btn-success">เพิ่มข้อมูลพนักงาน</a>
             </form>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-light table-striped table-hover">
                 <thead>
                     <tr>
                         <th style="width:8%;">Prefix</th>
@@ -54,10 +54,10 @@ $count = mysqli_num_rows($result);
                             <td><?php echo $row["tel"]; ?></td>
                             <td><?php echo $row["details"]; ?></td>
                             <td>
-                                <a href="editForm.php?id=<?php echo $row["id"] ?>" class="btn btn-primary">แก้ไขข้อมูล</a>
+                                <a href="function/editForm.php? ided=<?php echo $row["id"] ?>" class="btn btn-primary">แก้ไขข้อมูล</a>
                             </td>
                             <td>
-                                <a href="db/deleteQueryString.php?idemp=<?php echo $row["id"]; ?>" class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">ลบข้อมูล</a>
+                                <a href="db/deleteQueryString.php? idre=<?php echo $row["id"]; ?>" class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">ลบข้อมูล</a>
                             </td>
                         </tr>
                     <?php } ?>
