@@ -4,16 +4,16 @@ require_once 'config.php';
 
 class Database extends Config
 {
-    public function insert($pre, $fname, $lname, $dep, $pos, $phone)
+    public function insert($prefix, $fname, $lname, $department, $position, $phone)
     {
-        $sql = "INSERT INTO users(first_name, last_name, email, phone) VALUES(:fname, :lname, :email, :phone)";
+        $sql = "INSERT INTO users(prefix, first_name, last_name, department, position, phone) VALUES(:prefix, :first_name, :last_name, :department, :position, :phone)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
-            'pre' => $pre,
+            'prefix' => $prefix,
             'fname' => $fname,
             'lname' => $lname,
-            'dep' => $dep,
-            'pos' => $pos,
+            'department' => $department,
+            'position' => $position,
             'phone' => $phone
         ]);
         return true;
@@ -37,16 +37,17 @@ class Database extends Config
         return $result;
     }
 
-    public function update($id, $pre, $fname, $lname, $dep, $pos, $phone)
+    public function update($id, $prefix, $fname, $lname, $department, $position, $phone)
     {
-        $sql = "UPDATE users SET prefix = :pre, first_name = :fname, last_name = :lname, department = :dep, position = :pos, phone = :phone WHERE id = :id";
+        // $sql = "UPDATE users SET first_name = :fname, last_name = :lname, email = :email, phone = :phone WHERE id = :id";
+        $sql = "UPDATE users SET prefix = :prefix, first_name = :first_name, last_name = :last_name, department = :department, position = :position, phone = :phone WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
-            'pre' => $pre,
+            'prefix' => $prefix,
             'fname' => $fname,
             'lname' => $lname,
-            'dep' => $dep,
-            'pos' => $pos,
+            'department' => $department,
+            'position' => $position,
             'phone' => $phone,
             'id' => $id,
         ]);

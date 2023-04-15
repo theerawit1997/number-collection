@@ -58,11 +58,11 @@ const editUser = async (id) => {
   });
   const response = await data.json();
   document.getElementById("id").value = response.id;
-  document.getElementById("pre").value = response.prefix;
+  document.getElementById("prefix").value = response.prefix;
   document.getElementById("fname").value = response.first_name;
   document.getElementById("lname").value = response.last_name;
-  document.getElementById("dep").value = response.department;
-  document.getElementById("pos").value = response.position;
+  document.getElementById("department").value = response.department;
+  document.getElementById("position").value = response.position;
   document.getElementById("phone").value = response.phone;
 };
 

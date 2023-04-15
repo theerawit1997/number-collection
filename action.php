@@ -7,14 +7,14 @@ $db = new Database();
 $util = new Util();
 
 if (isset($_POST['add'])) {
-    $pre = $util->testInput($_POST['pre']);
+    $prefix = $util->testInput($_POST['prefix']);
     $fname = $util->testInput($_POST['fname']);
     $lname = $util->testInput($_POST['lname']);
-    $dep = $util->testInput($_POST['dep']);
-    $pos = $util->testInput($_POST['pos']);
+    $department = $util->testInput($_POST['department']);
+    $position = $util->testInput($_POST['position']);
     $phone = $util->testInput($_POST['phone']);
 
-    if ($db->insert($pre, $fname, $lname, $dep, $pos, $phone)) {
+    if ($db->insert($prefix, $fname, $lname, $department, $position, $phone)) {
         echo $util->showMessage("success", "User inserted successfully!");
     } else {
         echo $util->showMessage("danger", "Something went wrong!");
@@ -56,14 +56,14 @@ if (isset($_GET['edit'])) {
 
 if (isset($_POST['update'])) {
     $id = $util->testInput($_POST['id']);
-    $pre = $util->testInput($_POST['pre']);
+    $prefix = $util->testInput($_POST['prefix']);
     $fname = $util->testInput($_POST['fname']);
     $lname = $util->testInput($_POST['lname']);
-    $dep = $util->testInput($_POST['dep']);
-    $pos = $util->testInput($_POST['pos']);
+    $department = $util->testInput($_POST['department']);
+    $position = $util->testInput($_POST['position']);
     $phone = $util->testInput($_POST['phone']);
 
-    if ($db->update($id, $pre, $fname, $lname, $dep, $pos, $phone)) {
+    if ($db->update($id, $prefix, $fname, $lname, $department, $position, $phone)) {
         echo $util->showMessage("success", "User updated successfully!");
     } else {
         echo $util->showMessage("danger", "Something went wrong!");

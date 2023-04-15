@@ -7,13 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>CRUD APP PDO OOP</title>
+    <title>number-collection</title>
+    <!-- <title>CRUD APP PDO OOP</title> -->
 </head>
 
 <body>
-
+    <br>
+    <div class="container">
+        <form action="/function/searchData.php" class="form-group" method="POST">
+            <label for="">ค้นหาพนักงาน</label>
+            <input type="text" placeholder="ป้อนชื่อพนักงาน" name="search" class="form-control">
+            <input type="submit" value="Search" class="btn btn-dark my-2">
+        </form>
+    </div>
     <!-- Add New User Modal Start -->
     <div class="modal fade" tabindex="-1" id="addNewUserModal">
         <div class="modal-dialog modal-dialog-centered">
@@ -26,7 +35,7 @@
                     <form id="add-user-form" class="p-2" novalidate>
                         <div class="mb-3">
                             <label class="form-label" for="prefix">คำนำหน้า</label>
-                            <select class="form-select" type="text" name="pre">
+                            <select class="form-select" type=" text" name="prefix">
                                 <option value="ไม่กำหนด">ไม่กำหนด</option>
                                 <option value="นาย">นาย</option>
                                 <option value="นางสาว">นางสาว</option>
@@ -50,7 +59,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="department">แผนก</label>
-                            <select class="form-select" name="dep">
+                            <select class="form-select" name="department">
                                 <option value="ไม่กำหนด">ไม่กำหนด</option>
                                 <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยใน</option>
                                 <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยนอก</option>
@@ -72,7 +81,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="position">ตำแหน่ง</label>
-                            <select class="form-select" name="pos">
+                            <select class="form-select" name="position">
                                 <option value="ไม่กำหนด">ไม่กำหนด</option>
                                 <option value="ศาสตราจารย์">ศาสตราจารย์</option>
                                 <option value="รองศาสตราจารย์">รองศาสตราจารย์</option>
@@ -112,7 +121,7 @@
                         <input type="hidden" name="id" id="id">
                         <div class="mb-3">
                             <label class="form-label" for="prefix">คำนำหน้า</label>
-                            <select class="form-select" type=" text" id="pre" name="pre">
+                            <select class="form-select" type=" text" id="prefix" name="prefix">
                                 <option value="ไม่กำหนด">ไม่กำหนด</option>
                                 <option value="นาย">นาย</option>
                                 <option value="นางสาว">นางสาว</option>
@@ -136,7 +145,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="department">แผนก</label>
-                            <select class="form-select" id="dep" name="dep">
+                            <select class="form-select" id="department" name="department">
                                 <option value="ไม่กำหนด">ไม่กำหนด</option>
                                 <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยใน</option>
                                 <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยนอก</option>
@@ -158,7 +167,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="position">ตำแหน่ง</label>
-                            <select class="form-select" id="pos" name="pos">
+                            <select class="form-select" id="position" name="position">
                                 <option value="ไม่กำหนด">ไม่กำหนด</option>
                                 <option value="ศาสตราจารย์">ศาสตราจารย์</option>
                                 <option value="รองศาสตราจารย์">รองศาสตราจารย์</option>
