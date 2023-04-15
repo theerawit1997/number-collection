@@ -4,6 +4,7 @@ include("db/db_connect.php");
 $sql = "SELECT * FROM `info` ORDER BY fname ASC";
 $result = mysqli_query($connect, $sql);
 $count = mysqli_num_rows($result);
+$order = 1;
 ?>
 
 <!DOCTYPE html>
@@ -32,13 +33,14 @@ $count = mysqli_num_rows($result);
             <table class="table table-bordered table-light table-striped table-hover">
                 <thead>
                     <tr>
-                        <th style="width:8%;">Prefix</th>
-                        <th style="width:16%;">Name</th>
-                        <th style="width:16%;">Surname</th>
-                        <th style="width:10%;">Dept</th>
-                        <th style="width:10%;">Position</th>
-                        <th style="width:16%;">tel</th>
-                        <th style="width:10%">details</th>
+                        <th style="width:3%;">ลำดับ</th>
+                        <th style="width:8%;">คำนำหน้า</th>
+                        <th style="width:16%;">ชื่อ</th>
+                        <th style="width:16%;">นามสกุล</th>
+                        <th style="width:10%;">แผนก</th>
+                        <th style="width:10%;">ตำแหน่ง</th>
+                        <th style="width:13%;">เบอร์โทรศัพท์</th>
+                        <th style="width:10%">เพิ่มเติม</th>
                         <th style="width:7%;"></th>
                         <th style="width:7%;"></th>
                     </tr>
@@ -46,6 +48,7 @@ $count = mysqli_num_rows($result);
                 <tbody>
                     <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                         <tr>
+                            <td><?php echo $order++; ?></td>
                             <td><?php echo $row["prefix"]; ?></td>
                             <td><?php echo $row["fname"]; ?></td>
                             <td><?php echo $row["lname"]; ?></td>
@@ -54,7 +57,7 @@ $count = mysqli_num_rows($result);
                             <td><?php echo $row["tel"]; ?></td>
                             <td><?php echo $row["details"]; ?></td>
                             <td>
-                                <a href="function/editForm.php? ided=<?php echo $row["id"] ?>" class="btn btn-primary">แก้ไขข้อมูล</a>
+                                <a href="function/editForm.php?id=<?php echo $row["id"] ?>" class="btn btn-primary">แก้ไขข้อมูล</a>
                             </td>
                             <td>
                                 <a href="db/deleteQueryString.php? idre=<?php echo $row["id"]; ?>" class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">ลบข้อมูล</a>
@@ -68,6 +71,9 @@ $count = mysqli_num_rows($result);
             <div class="alert alert-danger">
                 <b>ไม่มีข้อมูลพนักงาน !!!<b>
             </div>
+            <form class="form-group">
+                <a href="function/insertForm.php" class="btn btn-success">เพิ่มข้อมูลพนักงาน</a>
+            </form>
         <?php } ?>
         </form>
     </div>

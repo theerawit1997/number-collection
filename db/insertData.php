@@ -20,5 +20,5 @@ if ($result) {
     header("location:../index.php");
     exit(0);
 } else {
-    echo "Failed to save data:";
+    echo "Failed to save data:" . mysqli_error($connect);
 }

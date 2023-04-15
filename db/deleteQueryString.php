@@ -11,5 +11,5 @@ if ($result) {
     header("location:../index.php");
     exit(0);
 } else {
-    echo "data deletion failed";
+    echo "data deletion failed" . mysqli_error($connect);
 }

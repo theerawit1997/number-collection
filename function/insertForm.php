@@ -19,7 +19,7 @@
                     <option value="นาย">นาย</option>
                     <option value="นางสาว">นางสาว</option>
                     <option value="นาง">นาง</option>
-                    <option value="Pนายแพทย์">นายแพทย์</option>
+                    <option value="นายแพทย์">นายแพทย์</option>
                     <option value="แพทย์หญิง">แพทย์หญิง</option>
                     <option value="นางพยาบาล">นางพยาบาล</option>
                 </select>
