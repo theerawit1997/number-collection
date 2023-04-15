@@ -1,143 +1,240 @@
-<?php
-
-session_start();
-
-require_once "config/db.php";
-
-if (isset($_GET['delete'])) {
-    $delete_id = $_GET['delete'];
-    $deletestmt = $conn->query("DELETE FROM users WHERE id = $delete_id");
-    $deletestmt->execute();
-
-    if ($deletestmt) {
-        echo "<script>alert('Data has been deleted successfully');</script>";
-        $_SESSION['success'] = "Data has been deleted succesfully";
-        header("refresh:1; url=index.php");
-    }
-}
-
-?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>number-collection</title>
-    <!-- CSS only -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>number-collection</title>
+    <!-- <title>CRUD APP PDO OOP</title> -->
 </head>
 
 <body>
-    <!-- add user form start-->
-    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <br>
+    <div class="container">
+        <form action="/function/searchData.php" class="form-group" method="POST">
+            <label for="">ค้นหาพนักงาน</label>
+            <input type="text" placeholder="ป้อนชื่อพนักงาน" name="search" class="form-control">
+            <input type="submit" value="Search" class="btn btn-dark my-2">
+        </form>
+    </div>
+    <!-- Add New User Modal Start -->
+    <div class="modal fade" tabindex="-1" id="addNewUserModal">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                    <h5 class="modal-header">Add New User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="insert.php" method="post" enctype="multipart/form-data">
+                    <form id="add-user-form" class="p-2" novalidate>
                         <div class="mb-3">
-                            <label for="firstname" class="col-form-label">First Name:</label>
-                            <input type="text" required class="form-control" name="firstname">
+                            <label class="form-label" for="prefix">คำนำหน้า</label>
+                            <select class="form-select" type=" text" name="prefix">
+                                <option value="ไม่กำหนด">ไม่กำหนด</option>
+                                <option value="นาย">นาย</option>
+                                <option value="นางสาว">นางสาว</option>
+                                <option value="นาง">นาง</option>
+                                <option value="นายแพทย์">นายแพทย์</option>
+                                <option value="แพทย์หญิง">แพทย์หญิง</option>
+                                <option value="นางพยาบาล">นางพยาบาล</option>
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="firstname" class="col-form-label">Last Name:</label>
-                            <input type="text" required class="form-control" name="lastname">
+                            <label class="form-label" for="first_name">ชื่อ</label>
+                            <input type="text" name="first_name" class="form-control form-control-lg" placeholder="Enter First Name" required>
+                            <div class="invalid-feedback">First name is required!</div>
                         </div>
                         <div class="mb-3">
-                            <label for="firstname" class="col-form-label">Position:</label>
-                            <input type="text" required class="form-control" name="position">
+                            <label class="form-label" for="last_name">นามสกุล</label>
+                            <input type="text" name="last_name" class="form-control form-control-lg" placeholder="Enter Last Name" required>
+                            <div class="invalid-feedback">Last name is required!</div>
                         </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                        <div class="mb-3">
+                            <label class="form-label" for="department">แผนก</label>
+                            <select class="form-select" name="department">
+                                <option value="ไม่กำหนด">ไม่กำหนด</option>
+                                <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยใน</option>
+                                <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยนอก</option>
+                                <option value="แผนกฉุกเฉินและอุบัติเหตุ">แผนกฉุกเฉินและอุบัติเหตุ</option>
+                                <option value="แผนกจิตเวช">แผนกจิตเวช</option>
+                                <option value="แผนกผู้ป่วยหนัก">แผนกผู้ป่วยหนัก</option>
+                                <option value="แผนกรังสี">แผนกรังสี</option>
+                                <option value="แผนกเภสัชกรรม">แผนกเภสัชกรรม</option>
+                                <option value="แผนกห้องปฏิบัติการทางการแพทย์">แผนกห้องปฏิบัติการทางการแพทย์ </option>
+                                <option value="แผนกศัลยกรรม">แผนกศัลยกรรม</option>
+                                <option value="แผนกวิสัญญี">แผนกวิสัญญี</option>
+                                <option value="แผนกสูตินรีเวช">แผนกสูตินรีเวช</option>
+                                <option value="แผนกเวชศาสตร์ฟื้นฟู">แผนกเวชศาสตร์ฟื้นฟู</option>
+                                <option value="แผนกกุมารเวช">แผนกกุมารเวช</option>
+                                <option value="แผนกอายุรกรรม">แผนกอายุรกรรม</option>
+                                <option value="แผนกจักษุ">แผนกจักษุ</option>
+                                <option value="แผนกหู คอ จมูก">แผนกหู คอ จมูก</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="position">ตำแหน่ง</label>
+                            <select class="form-select" name="position">
+                                <option value="ไม่กำหนด">ไม่กำหนด</option>
+                                <option value="ศาสตราจารย์">ศาสตราจารย์</option>
+                                <option value="รองศาสตราจารย์">รองศาสตราจารย์</option>
+                                <option value="ผู้ช่วยศาสตราจารย์">ผู้ช่วยศาสตราจารย์</option>
+                                <option value="อาจารย์">อาจารย์</option>
+                                <option value="นักวิจัย">นักวิจัย</option>
+                                <option value="พยาบาล">พยาบาล</option>
+                                <option value="แพทย์">แพทย์</option>
+                                <option value="เจ้าหน้าที่">เจ้าหน้าที่</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="phone">เบอร์โทรศัพท์</label>
+                            <input type="text" name="phone" class="form-control form-control-lg" placeholder="Enter Phone" required>
+                            <div class="invalid-feedback">Phone is required!</div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" value="Add User" class="btn btn-primary btn-block btn-lg" id="add-user-btn">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- add user form end-->
+    <!-- Add New User Modal End -->
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <h1>CRUD Bootstrap 5</h1>
+    <!-- Edit User Modal Start -->
+    <div class="modal fade" tabindex="-1" id="editUserModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-header">Edit This User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-user-form" class="p-2" novalidate>
+                        <input type="hidden" name="id" id="id">
+                        <div class="mb-3">
+                            <label class="form-label" for="prefix">คำนำหน้า</label>
+                            <select class="form-select" type=" text" id="prefix" name="prefix">
+                                <option value="ไม่กำหนด">ไม่กำหนด</option>
+                                <option value="นาย">นาย</option>
+                                <option value="นางสาว">นางสาว</option>
+                                <option value="นาง">นาง</option>
+                                <option value="นายแพทย์">นายแพทย์</option>
+                                <option value="แพทย์หญิง">แพทย์หญิง</option>
+                                <option value="นางพยาบาล">นางพยาบาล</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="first_name">ชื่อ</label>
+                            <input type="text" id="first_name" name="first_name" class="form-control form-control-lg" placeholder="Enter First Name" required>
+                            <div class="invalid-feedback">First name is required!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="last_name">นามสกุล</label>
+                            <input type="text" id="last_name" name="last_name" class="form-control form-control-lg" placeholder="Enter Last Name" required>
+                            <div class="invalid-feedback">Last name is required!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="department">แผนก</label>
+                            <select class="form-select" id="department" name="department">
+                                <option value="ไม่กำหนด">ไม่กำหนด</option>
+                                <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยใน</option>
+                                <option value="แผนกผู้ป่วยใน">แผนกผู้ป่วยนอก</option>
+                                <option value="แผนกฉุกเฉินและอุบัติเหตุ">แผนกฉุกเฉินและอุบัติเหตุ</option>
+                                <option value="แผนกจิตเวช">แผนกจิตเวช</option>
+                                <option value="แผนกผู้ป่วยหนัก">แผนกผู้ป่วยหนัก</option>
+                                <option value="แผนกรังสี">แผนกรังสี</option>
+                                <option value="แผนกเภสัชกรรม">แผนกเภสัชกรรม</option>
+                                <option value="แผนกห้องปฏิบัติการทางการแพทย์">แผนกห้องปฏิบัติการทางการแพทย์ </option>
+                                <option value="แผนกศัลยกรรม">แผนกศัลยกรรม</option>
+                                <option value="แผนกวิสัญญี">แผนกวิสัญญี</option>
+                                <option value="แผนกสูตินรีเวช">แผนกสูตินรีเวช</option>
+                                <option value="แผนกเวชศาสตร์ฟื้นฟู">แผนกเวชศาสตร์ฟื้นฟู</option>
+                                <option value="แผนกกุมารเวช">แผนกกุมารเวช</option>
+                                <option value="แผนกอายุรกรรม">แผนกอายุรกรรม</option>
+                                <option value="แผนกจักษุ">แผนกจักษุ</option>
+                                <option value="แผนกหู คอ จมูก">แผนกหู คอ จมูก</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="position">ตำแหน่ง</label>
+                            <select class="form-select" id="position" name="position">
+                                <option value="ไม่กำหนด">ไม่กำหนด</option>
+                                <option value="ศาสตราจารย์">ศาสตราจารย์</option>
+                                <option value="รองศาสตราจารย์">รองศาสตราจารย์</option>
+                                <option value="ผู้ช่วยศาสตราจารย์">ผู้ช่วยศาสตราจารย์</option>
+                                <option value="อาจารย์">อาจารย์</option>
+                                <option value="นักวิจัย">นักวิจัย</option>
+                                <option value="พยาบาล">พยาบาล</option>
+                                <option value="แพทย์">แพทย์</option>
+                                <option value="เจ้าหน้าที่">เจ้าหน้าที่</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="phone">เบอร์โทรศัพท์</label>
+                            <input type="text" id="phone" name="phone" class="form-control form-control-lg" placeholder="Enter Phone" required>
+                            <div class="invalid-feedback">Phone is required!</div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" value="Edit User" class="btn btn-primary btn-block btn-lg" id="edit-user-btn">
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="col-md-6 d-flex justify-content-end">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo">Add User</button>
+        </div>
+    </div>
+    <!-- Edit User Modal End -->
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="text-primary">All users in the database</h4>
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addNewUserModal">Add New User</button>
+                </div>
             </div>
         </div>
         <hr>
-        <?php if (isset($_SESSION['success'])) { ?>
-            <div class="alert alert-success">
-                <?php
-                echo $_SESSION['success'];
-                unset($_SESSION['success']);
-                ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="showAlert"></div>
             </div>
-        <?php } ?>
-        <?php if (isset($_SESSION['error'])) { ?>
-            <div class="alert alert-danger">
-                <?php
-                echo $_SESSION['error'];
-                unset($_SESSION['error']);
-                ?>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table-boredered text-center">
+                        <thead>
+                            <tr>
+                                <th style="width:5%;">ID</th>
+                                <th style="width:10%;">คำนำหน้า</th>
+                                <th style="width:20%;">ชื่อ</th>
+                                <th style="width:20%;">นามสกุล</th>
+                                <th style="width:10%;">แผนก</th>
+                                <th style="width:10%;">ตำแหน่ง</th>
+                                <th style="width:15%;">เบอร์โทรศัพท์</th>
+                                <th style="width:10%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        <?php } ?>
-
-        <table class="table table-striped table-boredered">
-            <thead>
-                <tr>
-                    <th scope="col" style="width:4%;">#</th>
-                    <th scope="col" style="width:10%;">Prefix</th>
-                    <th scope="col" style="width:17%;">Name</th>
-                    <th scope="col" style="width:17%;">Surname</th>
-                    <th scope="col" style="width:12%;">Dept</th>
-                    <th scope="col" style="width:10%;">Position</th>
-                    <th scope="col" style="width:15%;">tel</th>
-                    <th scope="col" style="width:15%;">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $stmt = $conn->query("SELECT * FROM users");
-                $stmt->execute();
-                $users = $stmt->fetchAll();
-
-                if (!$users) {
-                    echo "<p><td colspan='6' class='text-center'>No data available</td></p>";
-                } else {
-                    foreach ($users as $user) {
-                ?>
-                        <tr>
-                            <th scope="row"><?php echo $user['id']; ?></th>
-                            <td><?php echo $user['prefix']; ?></td>
-                            <td><?php echo $user['firstname']; ?></td>
-                            <td><?php echo $user['lastname']; ?></td>
-                            <td><?php echo $user['dept']; ?></td>
-                            <td><?php echo $user['position']; ?></td>
-                            <td><?php echo $user['tel']; ?></td>
-                            <td>
-                                <a href="edit.php?id=<?php echo $user['id']; ?>" class="btn btn-warning">Edit</a>
-                                <a onclick="return confirm('Are you sure you want to delete?');" href="?delete=<?php echo $user['id']; ?>" class="btn btn-danger">Delete</a>
-                            </td>
-                        </tr>
-                <?php }
-                } ?>
-            </tbody>
-        </table>
+        </div>
     </div>
 
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script>
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+
 </body>
 
 </html>
