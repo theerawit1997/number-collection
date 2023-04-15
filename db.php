@@ -4,14 +4,14 @@ require_once 'config.php';
 
 class Database extends Config
 {
-    public function insert($prefix, $first_name, $last_name, $department, $position, $phone)
+    public function insert($prefix, $fname, $lname, $department, $position, $phone)
     {
-        $sql = "INSERT INTO users(prefix, first_name, last_name, department, position, phone) VALUES(:prefix, :first_name, :last_name, :department, :position, :phone)";
+        $sql = "INSERT INTO users(first_name, last_name, email, phone) VALUES(:fname, :lname, :email, :phone)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             'prefix' => $prefix,
-            'first_name' => $first_name,
-            'last_name' => $last_name,
+            'fname' => $fname,
+            'lname' => $lname,
             'department' => $department,
             'position' => $position,
             'phone' => $phone
@@ -37,15 +37,14 @@ class Database extends Config
         return $result;
     }
 
-    public function update($id, $prefix, $first_name, $last_name, $department, $position, $phone)
+    public function update($id, $prefix, $fname, $lname, $department, $position, $phone)
     {
-        // $sql = "UPDATE users SET first_name = :fname, last_name = :lname, email = :email, phone = :phone WHERE id = :id";
-        $sql = "UPDATE users SET prefix = :prefix, first_name = :first_name, last_name = :last_name, department = :department, position = :position, phone = :phone WHERE id = :id";
+        $sql = "UPDATE users SET first_name = :fname, last_name = :lname, email = :email, phone = :phone WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             'prefix' => $prefix,
-            'first_name' => $first_name,
-            'last_name' => $last_name,
+            'fname' => $fname,
+            'lname' => $lname,
             'department' => $department,
             'position' => $position,
             'phone' => $phone,

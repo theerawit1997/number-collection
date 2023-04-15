@@ -5,7 +5,7 @@ class Config
     private const DBHOST = "localhost";
     private const DBUSER = "root";
     private const DBPASS = "M123456789";
-    private const DBNAME = "fetch_crud_app";
+    private const DBNAME = "fetch_crud_app2";
     private $dsn = "mysql:host=" . self::DBHOST . ";dbname=" . self::DBNAME . '';
     protected $conn = null;
 
