@@ -6,7 +6,7 @@ class Database extends Config
 {
     public function insert($prefix, $fname, $lname, $department, $position, $phone)
     {
-        $sql = "INSERT INTO users(prefix, first_name, last_name, department, position, phone) VALUES(:prefix, :first_name, :last_name, :department, :position, :phone)";
+        $sql = "INSERT INTO users(prefix,first_name, last_name, department, position, phone) VALUES(:prefix,:fname, :lname, :department, :position, :phone)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             'prefix' => $prefix,

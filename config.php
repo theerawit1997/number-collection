@@ -15,7 +15,7 @@ class Config
             $this->conn = new PDO($this->dsn, self::DBUSER, self::DBPASS);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            die("connet-db error: " . $e->getMessage());
+            die("Error: " . $e->getMessage());
         }
     }
 }
