@@ -4,16 +4,16 @@ require_once 'config.php';
 
 class Database extends Config
 {
-    public function insert($prefix, $fname, $lname, $department, $position, $phone)
+    public function insert($pre, $fname, $lname, $dep, $pos, $phone)
     {
         $sql = "INSERT INTO users(first_name, last_name, email, phone) VALUES(:fname, :lname, :email, :phone)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
-            'prefix' => $prefix,
+            'pre' => $pre,
             'fname' => $fname,
             'lname' => $lname,
-            'department' => $department,
-            'position' => $position,
+            'dep' => $dep,
+            'pos' => $pos,
             'phone' => $phone
         ]);
         return true;
@@ -37,16 +37,16 @@ class Database extends Config
         return $result;
     }
 
-    public function update($id, $prefix, $fname, $lname, $department, $position, $phone)
+    public function update($id, $pre, $fname, $lname, $dep, $pos, $phone)
     {
-        $sql = "UPDATE users SET first_name = :fname, last_name = :lname, email = :email, phone = :phone WHERE id = :id";
+        $sql = "UPDATE users SET prefix = :pre, first_name = :fname, last_name = :lname, department = :dep, position = :pos, phone = :phone WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
-            'prefix' => $prefix,
+            'pre' => $pre,
             'fname' => $fname,
             'lname' => $lname,
-            'department' => $department,
-            'position' => $position,
+            'dep' => $dep,
+            'pos' => $pos,
             'phone' => $phone,
             'id' => $id,
         ]);
