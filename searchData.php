@@ -1,9 +1,11 @@
 <?php
 require('dbconnect.php');
 
-$sql = "SELECT * FROM employees ORDER BY fname ASC";
-$result = mysqli_query($connect, $sql);
+$name = $_POST["empname"]; //หาชื่อ
 
+$sql = "SELECT * FROM employees WHERE (prefix LIKE '%$name%')OR(fname LIKE '%$name%')OR(lname LIKE '%$name%')OR(department LIKE '%$name%')OR(position LIKE '%$name%')OR(tel LIKE '%$name%') ORDER BY fname ASC";
+
+$result = mysqli_query($connect, $sql);
 $count = mysqli_num_rows($result);
 $order = 1;
 ?>
@@ -71,10 +73,10 @@ $order = 1;
 
         <?php } else { ?>
             <div class="alert alert-danger">
-                <b>ไม่มีข้อมูลพนักงาน !!!<b>
+                <b>ไม่พบข้อมูลที่ค้นหา !!!<b>
             </div>
         <?php } ?>
-        <a href="insertForm.php" class="btn btn-success">บันทึกข้อมูลพนักงาน</a>
+        <a href="index.php" class="btn btn-success">กลับหน้าแรก</a>
         <?php if ($count > 0) { ?>
             <input type="submit" value="ลบข้อมูล (Checkbox)" class="btn btn-danger" onclick="return confirm('คุณต้องการลบข้อมูลหรือไม่')">
         <?php } ?>
